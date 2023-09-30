@@ -84,8 +84,10 @@ public class SettingWindow extends JFrame {
         ButtonGroup buttonGroup = new ButtonGroup();
         humanVAI = new JRadioButton(BTN_HUMAN_VERSUS_AI);
         humanVHuman = new JRadioButton(BTN_HUMAN_VERSUS_HUMAN);
+
         buttonGroup.add(humanVAI);
         buttonGroup.add(humanVHuman);
+
         humanVAI.setSelected(true);
 
         panel.add(title);
@@ -123,7 +125,9 @@ public class SettingWindow extends JFrame {
         winSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                labelWinLength.setText(SIZE_PREFIX + winSlider.getValue());
+                int curSize = winSlider.getValue();
+                labelWinLength.setText(WIN_LENGTH_PREFIX + winSlider.getValue());
+                sizeSlider.setMinimum(curSize);
             }
         });
 
