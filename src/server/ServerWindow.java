@@ -6,8 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ServerWindow extends JFrame {
+
+    TextAreaServer textAreaServer;
+//    JTextArea text1;
+
     private static final int WIDTH = 555;
     private static final int HEIGHT = 507;
+    private static final String MSG_IS_ON = "Сервер уже включен!";
+    private static final String MSG_IS_OUT = "Сервер уже выключен!";
 
     private JButton btnStart, btnStop;
     private boolean isServerWorking;
@@ -18,6 +24,9 @@ public class ServerWindow extends JFrame {
         setLocationRelativeTo(null);
         setTitle("Server Chat");
         setResizable(false);
+
+        textAreaServer = new TextAreaServer();
+//        text1 = new JTextArea("", 10, 15);
 
         isServerWorking = false;
         btnStart = new JButton("Start");
@@ -56,10 +65,18 @@ public class ServerWindow extends JFrame {
     }
     void btnIsPushed(boolean isOn) {
         if (isOn) {
+//            msg();
+            JOptionPane.showMessageDialog(null, MSG_IS_ON);
             System.out.println("Server already on");
         } else {
+            JOptionPane.showMessageDialog(null, MSG_IS_OUT);
+//            msg();
             System.out.println("Server already out");
         }
+    }
+
+    private void msg() {
+        textAreaServer.msgServer(isServerWorking);
     }
 
 }

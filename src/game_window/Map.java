@@ -72,13 +72,6 @@ public class Map extends JPanel {
         checkEndGame(AI_DOT, STATE_WIN_AI);
     }
 
-//    private void testBoard(){
-//        for (int i = 0; i < 3; i++) {
-//            System.out.println(Arrays.toString(field[i]));
-//        }
-//        System.out.println();
-//    }
-
     private boolean isValidCell(int x, int y) {
         return x >= 0 && x < fieldSizeX && y >= 0 && y < fieldSizeY;
     }
