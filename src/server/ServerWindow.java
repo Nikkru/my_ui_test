@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 public class ServerWindow extends JFrame {
 
     TextAreaServer textAreaServer;
-//    JTextArea text1;
 
     private static final int WIDTH = 555;
     private static final int HEIGHT = 507;
