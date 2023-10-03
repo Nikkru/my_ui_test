@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Map extends JPanel {
@@ -35,7 +34,7 @@ public class Map extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 if (gameWork) {
-                    update(e);
+                    humanTurn(e);
                 }
             }
         });
@@ -58,7 +57,7 @@ public class Map extends JPanel {
         repaint();
     }
 
-    private void update(MouseEvent mouseEvent) {
+    private void humanTurn(MouseEvent mouseEvent) {
         int x = mouseEvent.getX() / cellWidth;
         int y = mouseEvent.getY() / cellHeight;
         if (!isValidCell(x, y) || !isEmptyCell(x, y)) {
@@ -73,12 +72,12 @@ public class Map extends JPanel {
         checkEndGame(AI_DOT, STATE_WIN_AI);
     }
 
-    private void testBoard(){
-        for (int i = 0; i < 3; i++) {
-            System.out.println(Arrays.toString(field[i]));
-        }
-        System.out.println();
-    }
+//    private void testBoard(){
+//        for (int i = 0; i < 3; i++) {
+//            System.out.println(Arrays.toString(field[i]));
+//        }
+//        System.out.println();
+//    }
 
     private boolean isValidCell(int x, int y) {
         return x >= 0 && x < fieldSizeX && y >= 0 && y < fieldSizeY;

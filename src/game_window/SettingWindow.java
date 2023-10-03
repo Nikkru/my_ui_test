@@ -22,12 +22,12 @@ public class SettingWindow extends JFrame {
     public static final int MIN_SIZE = 3;
     public static final int MAX_SIZE = 10;
 
-    private static final int WIDTH = 230;
-    private static final int HEIGHT = 350;
+    private static final int WINDOW_WIDTH = 230;
+    private static final int WINDOW_HEIGHT = 350;
 
     GameWindow gameWindow;
     JButton btnStart;
-    JRadioButton humanVHuman, humanVAI;
+    JRadioButton btnHumanVHuman, btnHumanVAI;
     Label labelCurSize, labelWinLength;
     JSlider sizeSlider, winSlider;
 
@@ -36,8 +36,8 @@ public class SettingWindow extends JFrame {
 
         int centerGameWindowX = gameWindow.getX() + gameWindow.getWidth()/2;
         int centerGameWindowY = gameWindow.getY() + gameWindow.getHeight()/2;
-        setLocation(centerGameWindowX - WIDTH/2, centerGameWindowY - HEIGHT/2);
-        setSize(WIDTH, HEIGHT);
+        setLocation(centerGameWindowX - WINDOW_WIDTH /2, centerGameWindowY - WINDOW_HEIGHT /2);
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
         add(createMainPanel());
         add(createButtonStart(), BorderLayout.SOUTH);
@@ -66,9 +66,9 @@ public class SettingWindow extends JFrame {
 
     private void startGame(){
         int mode;
-        if (humanVAI.isSelected()){
+        if (btnHumanVAI.isSelected()){
             mode = MODE_HVA;
-        } else if (humanVHuman.isSelected()){
+        } else if (btnHumanVHuman.isSelected()){
             mode = MODE_HVH;
         } else {
             throw new RuntimeException("Unknown game mode");
@@ -82,17 +82,17 @@ public class SettingWindow extends JFrame {
         JPanel panel = new JPanel(new GridLayout(3, 1));
         Label title = new Label(LABEL_CHOICE_MODE);
         ButtonGroup buttonGroup = new ButtonGroup();
-        humanVAI = new JRadioButton(BTN_HUMAN_VERSUS_AI);
-        humanVHuman = new JRadioButton(BTN_HUMAN_VERSUS_HUMAN);
+        btnHumanVAI = new JRadioButton(BTN_HUMAN_VERSUS_AI);
+        btnHumanVHuman = new JRadioButton(BTN_HUMAN_VERSUS_HUMAN);
 
-        buttonGroup.add(humanVAI);
-        buttonGroup.add(humanVHuman);
+        buttonGroup.add(btnHumanVAI);
+        buttonGroup.add(btnHumanVHuman);
 
-        humanVAI.setSelected(true);
+        btnHumanVAI.setSelected(true);
 
         panel.add(title);
-        panel.add(humanVAI);
-        panel.add(humanVHuman);
+        panel.add(btnHumanVAI);
+        panel.add(btnHumanVHuman);
 
         return panel;
     }
