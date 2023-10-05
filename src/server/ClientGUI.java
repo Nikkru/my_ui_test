@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class ClientGUI extends JFrame {
     private String[] arrUsers = {"Nick", "Monk", "Sherlok", "Wulf", "1964"};
@@ -67,6 +69,17 @@ public class ClientGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 serverWindow.txtLog = tfMessage.getText();
+                try(FileWriter writer = new FileWriter("log.txt", true)) {
+
+                    String text = tfMessage.getText();
+                    writer.write(text + "\n");
+
+                    writer.flush();
+                }
+                catch(IOException ex){
+
+                    System.out.println(ex.getMessage());
+                }
                 btnCounter ++;
                 System.out.println("Button 'Send' was tapped " + btnCounter + " times");
                 serverWindow.repaint();
