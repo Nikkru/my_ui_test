@@ -60,6 +60,7 @@ public class ClientGUI extends JFrame {
         panelBottom.add(createButtonSend(), BorderLayout.EAST);
         add(panelBottom, BorderLayout.SOUTH);
 
+        add(createTextAreaLog());
 //        setVisible(true);
     }
     private Component createTextAreaLog() {
