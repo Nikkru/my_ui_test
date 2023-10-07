@@ -8,18 +8,18 @@ import java.awt.event.ActionListener;
 public class ServerWindow extends JFrame {
 
     TextAreaServer textAreaServer;
-//    ClientGUI clientGUI;
-
+    ClientGUI clientGUI;
+//
     private static final int WIDTH = 555;
     private static final int HEIGHT = 507;
     private static final String MSG_IS_ON = "Сервер уже включен!";
     private static final String MSG_IS_OUT = "Сервер уже выключен!";
 
-    private JTextField tfLog = new JTextField();
+//    private JTextField tfLog = new JTextField();
 
     private JButton btnStart, btnStop;
     private boolean isServerWorking;
-    String txtLog = "Здесь будет логирование чата";
+//    String txtLog = "";
 
     ServerWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +28,7 @@ public class ServerWindow extends JFrame {
         setTitle("Server Chat");
         setResizable(false);
 
-//        clientGUI = new ClientGUI();
+        clientGUI = new ClientGUI();
         textAreaServer = new TextAreaServer();
 //        text1 = new JTextArea("", 10, 15);
 
@@ -44,7 +44,9 @@ public class ServerWindow extends JFrame {
                 } else {
                     isServerWorking = true;
                     System.out.println("Server started " + isServerWorking);
+
                 }
+                clientGUI.setVisible(true);
             }
         });
         btnStop.addActionListener(new ActionListener() {
@@ -56,44 +58,28 @@ public class ServerWindow extends JFrame {
                     isServerWorking = false;
                     System.out.println("Server stoped " + isServerWorking);
                 }
+                clientGUI.setVisible(false);
             }
         });
 
         JPanel panBottom = new JPanel(new GridLayout(1, 2));
         JPanel panCenter = new JPanel(new GridLayout(1, 1));
 
-        panCenter.add(new JScrollPane(tfLog));
         panBottom.add(btnStart);
         panBottom.add(btnStop);
 
         add(panBottom, BorderLayout.SOUTH);
         add(panCenter, BorderLayout.CENTER);
 
-        setTfLog();
         setVisible(true);
     }
     void btnIsPushed(boolean isOn) {
         if (isOn) {
-//            msg();
             JOptionPane.showMessageDialog(null, MSG_IS_ON);
             System.out.println("Server already on");
         } else {
             JOptionPane.showMessageDialog(null, MSG_IS_OUT);
-//            msg();
             System.out.println("Server already out");
         }
-    }
-
-    private void msg() {
-        textAreaServer.msgServer(isServerWorking);
-    }
-
-    private void setTfLog() {
-        tfLog.setFont(new Font("Dialog", Font.PLAIN, 14));
-        tfLog.setHorizontalAlignment(JTextField.LEFT);
-        tfLog.setEditable(false);
-        tfLog.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        tfLog.setText(txtLog);
-
     }
 }

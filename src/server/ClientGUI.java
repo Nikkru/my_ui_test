@@ -13,7 +13,7 @@ public class ClientGUI extends JFrame {
     private static final int WIDTH = 400;
     private static final int HEIGHT = 300;
 
-    private final JTextArea log = new JTextArea();
+//    private final JTextArea log = new JTextArea();
 
     private int btnCounter = 0;
 
@@ -26,6 +26,9 @@ public class ClientGUI extends JFrame {
 
     private final JPanel panelBottom = new JPanel(new BorderLayout());
     private final JTextField tfMessage = new JTextField();
+//    private final JTextField tfLogHistory = new JTextField();
+
+    JTextArea log;
     JButton btnSend;
     JList<String> jlistUsers;
 
@@ -38,7 +41,7 @@ public class ClientGUI extends JFrame {
         setSize(WIDTH, HEIGHT);
         setTitle("Chat Client");
 
-        serverWindow = new ServerWindow();
+//        serverWindow = new ServerWindow();
 
         jlistUsers = new JList<>(arrUsers);
         jlistUsers.setLayoutOrientation(JList.VERTICAL);
@@ -57,18 +60,24 @@ public class ClientGUI extends JFrame {
         panelBottom.add(createButtonSend(), BorderLayout.EAST);
         add(panelBottom, BorderLayout.SOUTH);
 
+//        setVisible(true);
+    }
+    private Component createTextAreaLog() {
+        log = new JTextArea();
         log.setEditable(false);
+        log.setLineWrap(true);
+        log.setWrapStyleWord(true);
         JScrollPane scrollLog = new JScrollPane(log);
-        add(scrollLog);
-
-        setVisible(true);
+//        add(scrollLog);
+        return log;
     }
     private Component createButtonSend(){
         btnSend = new JButton("Send");
         btnSend.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                serverWindow.txtLog = tfMessage.getText();
+                log.append(tfMessage.getText() + "\n");
+
                 try(FileWriter writer = new FileWriter("log.txt", true)) {
 
                     String text = tfMessage.getText();
@@ -80,9 +89,11 @@ public class ClientGUI extends JFrame {
 
                     System.out.println(ex.getMessage());
                 }
+
                 btnCounter ++;
                 System.out.println("Button 'Send' was tapped " + btnCounter + " times");
-                serverWindow.repaint();
+//                serverWindow.repaint();
+                tfMessage.setText("");
             }
         });
         return btnSend;
