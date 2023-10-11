@@ -1,4 +1,4 @@
-package circles;
+package sem2.common;
 
 import java.awt.*;
 

@@ -1,13 +1,16 @@
-package circles;
+package sem2.common;
+
+import sem2.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainCanvas extends JPanel {
-    private final MainWindow controller;
+    private final CanvasRepaintListener controller;
+//    private final MainWindow controller;
     private long lastFrameTime;
 
-    MainCanvas(MainWindow controller) {
+    public MainCanvas(CanvasRepaintListener controller) {
 
 //        setBackground(Color.BLUE);
         this.controller = controller;

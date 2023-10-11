@@ -1,9 +1,15 @@
-package circles;
+package sem2.circles;
+
+import sem2.common.CanvasRepaintListener;
+import sem2.common.MainCanvas;
+import sem2.common.Sprite;
+import sem2.circles.Background;
+import sem2.circles.Ball;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements CanvasRepaintListener {
     private static final int POS_X = 400;
     private static final int POS_Y = 200;
     private static final int WINDOW_WIDTH = 800;
@@ -11,7 +17,7 @@ public class MainWindow extends JFrame {
 
     private final Sprite[] sprites = new Sprite[10];
 
-    private MainWindow() {
+    public MainWindow() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(POS_X, POS_Y, WINDOW_WIDTH, WINDOW_HEIGHT);
         setTitle("Circles");
@@ -27,6 +33,7 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
+    @Override
     public void onDrawFrame(MainCanvas canvas, Graphics g, float deltaTime) {
         update(canvas,deltaTime);
         render(canvas, g);

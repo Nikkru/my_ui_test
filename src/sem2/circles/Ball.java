@@ -1,4 +1,7 @@
-package circles;
+package sem2.circles;
+
+import sem2.common.MainCanvas;
+import sem2.common.Sprite;
 
 import java.awt.*;
 import java.util.Random;
@@ -9,7 +12,7 @@ public class Ball extends Sprite {
     private float vX;
     private float vY;
 
-    Ball() {
+    public Ball() {
         halfHeight = 20 + (float) (Math.random() * 50f);
         halfWidth = halfHeight;
         color = new Color(rnd.nextInt());

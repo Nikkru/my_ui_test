@@ -1,4 +1,8 @@
-package circles;
+package sem2.circles;
+
+import sem2.common.Interactable;
+import sem2.common.MainCanvas;
+import sem2.common.Sprite;
 
 import java.awt.*;
 
