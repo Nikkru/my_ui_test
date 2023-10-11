@@ -2,7 +2,7 @@ package circles;
 
 import java.awt.*;
 
-public class Background extends Sprite {
+public class Background extends Sprite implements Interactable {
     private float time;
     private static final float AMPLITUDE = 255f / 2f;
     private Color color;
