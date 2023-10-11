@@ -1,4 +1,4 @@
-package sem2.circles;
+package sem2.circles.sprites;
 
 import sem2.common.Interactable;
 import sem2.common.MainCanvas;
@@ -10,6 +10,10 @@ public class Background extends Sprite implements Interactable {
     private float time;
     private static final float AMPLITUDE = 255f / 2f;
     private Color color;
+
+    public Background(float x, float y) {
+        super(x, y);
+    }
 
     @Override
     public void update(MainCanvas canvas, float deltaTime) {

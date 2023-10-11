@@ -1,4 +1,4 @@
-package sem2.circles;
+package sem2.circles.sprites;
 
 import sem2.common.MainCanvas;
 import sem2.common.Sprite;
@@ -12,12 +12,13 @@ public class Ball extends Sprite {
     private float vX;
     private float vY;
 
-    public Ball() {
-        halfHeight = 20 + (float) (Math.random() * 50f);
+    public Ball(int x, int y) {
+        super(x, y);
+        halfHeight = 20 + rnd.nextFloat(50);
         halfWidth = halfHeight;
         color = new Color(rnd.nextInt());
-        vX = 100f + (float) (Math.random() * 200f);
-        vY = 100f + (float) (Math.random() * 200f);
+        vX = 100 + rnd.nextFloat(200);
+        vY = 100 + rnd.nextFloat(200);
     }
 
     @Override

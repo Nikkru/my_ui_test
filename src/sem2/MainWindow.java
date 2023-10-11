@@ -1,7 +1,7 @@
 package sem2;
 
-import sem2.circles.Background;
-import sem2.circles.Ball;
+import sem2.circles.sprites.Background;
+import sem2.circles.sprites.Ball;
 import sem2.common.CanvasRepaintListener;
 import sem2.common.MainCanvas;
 import sem2.common.Sprite;
@@ -25,9 +25,9 @@ public class MainWindow extends JFrame implements CanvasRepaintListener {
         MainCanvas canvas = new MainCanvas(this);
         add(canvas);
 
-        sprites[0] = new Background();
+        sprites[0] = new Background(0, 0);
         for (int i = 1; i < sprites.length; i++) {
-            sprites[i] = new Ball();
+            sprites[i] = new Ball(10, 0);
         }
 
         setVisible(true);

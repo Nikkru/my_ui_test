@@ -12,7 +12,8 @@ public class Brick extends Sprite {
     private float vX;
     private float vY;
 
-    public Brick() {
+    public Brick(float x, float y) {
+        super(x, y);
         halfHeight = 20 + (float) (Math.random() * 50f);
         halfWidth = halfHeight;
         color = new Color(rnd.nextInt());
@@ -46,7 +47,7 @@ public class Brick extends Sprite {
     @Override
     public void render(MainCanvas canvas, Graphics g) {
         g.setColor(color);
-        g.fillRect(
+        g.drawRect(
                 (int) getLeft(),
                 (int) getTop(),
                 (int) getWidth(),
