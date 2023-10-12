@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-public class MainWindow extends JFrame implements CanvasRepaintListener {
+public class MainWindow extends JFrame implements CanvasRepaintListener, Thread.UncaughtExceptionHandler {
     private static final int POS_X = 400;
     private static final int POS_Y = 200;
     private static final int WINDOW_WIDTH = 800;
@@ -22,7 +22,7 @@ public class MainWindow extends JFrame implements CanvasRepaintListener {
     public final int MAX_COUNT_SPRITES = 15;
 
     private static Random rnd = new Random();
-    private Sprite[] sprites = new Sprite[DEFAULT_COUNT_SPRITES];
+//    private Sprite[] sprites = new Sprite[DEFAULT_COUNT_SPRITES];
     private Interactable sprites_[];
     private int countSprites;
 
@@ -77,6 +77,7 @@ public class MainWindow extends JFrame implements CanvasRepaintListener {
             sprites_[i].update(canvas, deltaTime);
         }
     }
+    
     private  void render(MainCanvas canvas, Graphics g) {
         for (int i = 0; i < countSprites; i++) {
             sprites_[i].render(canvas, g);
@@ -85,5 +86,12 @@ public class MainWindow extends JFrame implements CanvasRepaintListener {
 
     public static void main(String[] args) {
         new MainWindow();
+    }
+
+    @Override
+    public void uncaughtException(Thread t, Throwable e) {
+        if (e instanceof BallsOverflowException) {
+            e.fillInStackTrace();
+        }
     }
 }
