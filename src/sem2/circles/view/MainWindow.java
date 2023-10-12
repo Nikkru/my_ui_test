@@ -18,11 +18,11 @@ public class MainWindow extends JFrame implements CanvasRepaintListener, Thread.
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 600;
     private static final String TITLE = "Circles";
+
     private static final int DEFAULT_COUNT_SPRITES = 5;
     public final int MAX_COUNT_SPRITES = 15;
 
     private static Random rnd = new Random();
-//    private Sprite[] sprites = new Sprite[DEFAULT_COUNT_SPRITES];
     private Interactable sprites_[];
     private int countSprites;
 
@@ -44,6 +44,10 @@ public class MainWindow extends JFrame implements CanvasRepaintListener, Thread.
         setVisible(true);
     }
 
+    private static final String msgSpritesOverflow(int max) {
+        return "К сожелению, больше " + max + " объектов программа не поддерживает!";
+    }
+
     private void initSprites() {
         sprites_ = new Interactable[MAX_COUNT_SPRITES];
         sprites_[0] = new Background(0,0);
@@ -54,7 +58,7 @@ public class MainWindow extends JFrame implements CanvasRepaintListener, Thread.
     }
     public void addSprite(int x, int y) {
         if (countSprites >= MAX_COUNT_SPRITES) {
-            JOptionPane.showMessageDialog(null, "bad case");
+            JOptionPane.showMessageDialog(null, msgSpritesOverflow(MAX_COUNT_SPRITES));
             throw new BallsOverflowException();
         }
         sprites_[countSprites++] = new Ball(x, y);
