@@ -54,6 +54,7 @@ public class MainWindow extends JFrame implements CanvasRepaintListener, Thread.
     }
     public void addSprite(int x, int y) {
         if (countSprites >= MAX_COUNT_SPRITES) {
+            JOptionPane.showMessageDialog(null, "bad case");
             throw new BallsOverflowException();
         }
         sprites_[countSprites++] = new Ball(x, y);
@@ -72,12 +73,18 @@ public class MainWindow extends JFrame implements CanvasRepaintListener, Thread.
         render(canvas, g);
     }
 
+//    private void testOverFlowSpritesCount(int count) {
+//        if (count > MAX_COUNT_SPRITES) {
+//            JOptionPane.showMessageDialog(null, "bad case");
+//        }
+//    }
+
     private void update(MainCanvas canvas, float deltaTime) {
         for (int i = 0; i < countSprites; i++) {
             sprites_[i].update(canvas, deltaTime);
         }
     }
-    
+
     private  void render(MainCanvas canvas, Graphics g) {
         for (int i = 0; i < countSprites; i++) {
             sprites_[i].render(canvas, g);
