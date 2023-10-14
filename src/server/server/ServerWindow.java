@@ -1,4 +1,7 @@
-package server;
+package server.server;
+
+import server.TextAreaServer;
+import server.client.Client;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +16,7 @@ public class ServerWindow extends JFrame {
 
     TextAreaServer textAreaServer;
 //    ClientGUI clientGUI;
-    List<ClientGUI> clientGUIList;
+    List<Client> clientList;
 //
     private static final int WIDTH = 555;
     private static final int HEIGHT = 507;
@@ -27,8 +30,8 @@ public class ServerWindow extends JFrame {
     boolean isServerWorking;
     JTextArea log;
 
-    ServerWindow() {
-        clientGUIList = new ArrayList<>();
+    public ServerWindow() {
+        clientList = new ArrayList<Client>();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
@@ -96,11 +99,11 @@ public class ServerWindow extends JFrame {
         add(createButtons(), BorderLayout.SOUTH);
     }
 
-    public boolean connectUser(ClientGUI clientGUI) {
+    public boolean connectUser(Client client) {
         if (!isServerWorking) {
             return false;
         }
-        clientGUIList.add(clientGUI);
+        clientList.add(client);
         return true;
     }
 
@@ -132,18 +135,18 @@ public class ServerWindow extends JFrame {
         return readLog();
     }
 
-    public boolean addUserToChatList(ClientGUI clientGUI) {
+    public boolean addUserToChatList(Client clientGUI) {
         if (!isServerWorking) {
             return false;
         }
-        clientGUIList.add(clientGUI);
+        clientList.add(clientGUI);
         return true;
     }
 
-    public void disconnectUser(ClientGUI clientGUI) {
+    public void disconnectUser(Client clientGUI) {
         if (isServerWorking) {
             if (clientGUI != null) {
-                clientGUIList.remove(clientGUI);
+                clientList.remove(clientGUI);
                 System.out.println("Пользователь отключен");
             }
         }
@@ -154,8 +157,8 @@ public class ServerWindow extends JFrame {
     }
 
     private void answerAll(String text){
-        for (ClientGUI clientGUI: clientGUIList){
-            clientGUI.answer(text);
+        for (Client client: clientList){
+            client.serverAnswer(text);
         }
     }
 
@@ -193,7 +196,10 @@ public class ServerWindow extends JFrame {
                     appendLog("Сервер уже был остановлен");
                 } else {
                     isServerWorking = false;
-                    for (ClientGUI clientGUI: clientGUIList){
+//                    for (int i = clientGUIList.size(); i > 0; i-- ) {
+//                        disconnectUser(clientGUIList[i]);
+//                    }
+                    for (Client clientGUI: clientList) {
                         disconnectUser(clientGUI);
                     }
                     //TODO поправить удаление
