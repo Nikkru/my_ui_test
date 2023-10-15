@@ -12,12 +12,11 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServerWindow extends JFrame {
+public class ServerWindow extends JFrame implements ServerView{
 
     TextAreaServer textAreaServer;
-//    ClientGUI clientGUI;
     List<Client> clientList;
-//
+
     private static final int WIDTH = 555;
     private static final int HEIGHT = 507;
     private static final String MSG_IS_ON = "Сервер уже включен!";
@@ -39,54 +38,7 @@ public class ServerWindow extends JFrame {
         setTitle("Server Chat");
         setResizable(false);
 
-
-//        clientGUI = new ClientGUI(this);
         textAreaServer = new TextAreaServer();
-
-//        isServerWorking = false;
-//        btnStart = new JButton("Start");
-//        btnStop = new JButton("Stop");
-//
-//        btnStart.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (isServerWorking) {
-//                    btnIsPushed(isServerWorking);
-//                } else {
-//                    isServerWorking = true;
-//                    System.out.println("Server started " + isServerWorking);
-//
-//                }
-//                clientGUI.setVisible(true);
-//            }
-//        });
-
-//        btnStop.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (!isServerWorking) {
-//                    btnIsPushed(isServerWorking);
-//                } else {
-//                    isServerWorking = false;
-//                    System.out.println("Server stoped " + isServerWorking);
-//                    for (ClientGUI clientGUI: clientGUIList) {
-//                        disconnectUser(clientGUI);
-//                    }
-//                    appendLog("Server shut down");
-//                }
-//                clientGUI.setVisible(false);
-//            }
-//        });
-//
-//        JPanel panBottom = new JPanel(new GridLayout(1, 2));
-//        JPanel panCenter = new JPanel(new GridLayout(1, 1));
-//
-//        panBottom.add(btnStart);
-//        panBottom.add(btnStop);
-//        panCenter.add(log);
-
-//        add(panBottom, BorderLayout.SOUTH);
-//        add(panCenter, BorderLayout.CENTER);
 
         createPanel();
 
@@ -166,7 +118,6 @@ public class ServerWindow extends JFrame {
         if (!isServerWorking){
             return;
         }
-        text += "";
         appendLog(text);
         answerAll(text);
         writeLog(text);
@@ -196,9 +147,6 @@ public class ServerWindow extends JFrame {
                     appendLog("Сервер уже был остановлен");
                 } else {
                     isServerWorking = false;
-//                    for (int i = clientGUIList.size(); i > 0; i-- ) {
-//                        disconnectUser(clientGUIList[i]);
-//                    }
                     for (Client clientGUI: clientList) {
                         disconnectUser(clientGUI);
                     }
@@ -221,5 +169,10 @@ public class ServerWindow extends JFrame {
             JOptionPane.showMessageDialog(null, MSG_IS_OUT);
             System.out.println("Server already out");
         }
+    }
+
+    @Override
+    public void showMessage(String message) {
+        log.append(message + System.lineSeparator());
     }
 }
