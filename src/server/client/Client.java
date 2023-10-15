@@ -1,56 +1,56 @@
 package server.client;
 
 import sem2.common.Sprite;
+import server.server.Server;
 import server.server.ServerWindow;
 
 public class Client {
     private String name;
     private ClientView clientView;
-    private ServerWindow serverWindow;
+    private Server server;
     private boolean isConnected;
 
-    public Client(ClientView clientView, ServerWindow serverWindow) {
+    public Client(ClientView clientView, Server server) {
         this.clientView = clientView;
-        this.serverWindow = serverWindow;
+        this.server = server;
     }
 
     public boolean connectToServer(String name) {
         this.name = name;
-        if (serverWindow.connectUser(this)) {
-            printText("Вы успешно подключились!" + System.lineSeparator());
-            String log = serverWindow.getLog();
+        if (server.connectUser(this)){
+            showOnWindow("Вы успешно подключились!" + System.lineSeparator());
             isConnected = true;
-            if (log != null) {
-                printText(log);
+            String log = server.getHistory();
+            if (log != null){
+                showOnWindow(log);
             }
+            return true;
         } else {
-            printText("Connect falls");
+            showOnWindow("Подключение не удалось");
             return false;
         }
-        return true;
     }
 
     public void sendMessage(String message) {
         if (isConnected) {
             if (!message.isEmpty()) {
-                serverWindow.sendMessage(name + ": " + message);
+                server.sendMessage(name + ": " + message);
             }
         } else {
-            printText("Нет подключения к серверу!");
+            showOnWindow("Нет подключения к серверу!");
         }
     }
 
     public void serverAnswer(String answer) {
-        printText(answer);
+        showOnWindow(answer);
     }
 
     public void disconnect() {
-
         if (isConnected) {
             isConnected = false;
             clientView.disconnectFromServer();
-            serverWindow.disconnectUser(this);
-            printText("Вы были отключены от сервера.");
+            server.disconnectUser(this);
+            showOnWindow("Вы были отключены от сервера.");
         }
     }
 
@@ -58,7 +58,7 @@ public class Client {
         return name;
     }
 
-    private void printText(String text) {
-        clientView.showMessage(text);
+    private void showOnWindow(String text) {
+        clientView.showMessage(text + System.lineSeparator());
     }
 }

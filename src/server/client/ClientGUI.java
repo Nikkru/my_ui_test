@@ -7,13 +7,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ClientGUI extends JFrame implements ClientView {
-//    private static final String[] arrUsers = {"Nick", "Monk", "Sherlok", "Wulf", "1964"};
 
     private static final int WIDTH = 400;
     private static final int HEIGHT = 300;
-//    private int btnCounter = 0;
-
-    public static String logPath;
 
 //    private final JPanel panelBottom = new JPanel(new BorderLayout());
 //    private JTextField tfMessage = new JTextField();
@@ -26,28 +22,23 @@ public class ClientGUI extends JFrame implements ClientView {
 
     JTextArea log;
     JButton btnSend, btnLogin;
-//    JList<String> jlistUsers;
     JPanel headerPanel;
     JTextField tfMessage, tfIPAddress, tfPort, tfLogin;
     JPasswordField passwordField;
 
     public ClientGUI(ServerWindow serverWindow) {
-        this.client = new Client(this, serverWindow);
-
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setSize(WIDTH, HEIGHT);
-        setTitle("Chat Client");
-
-        logPath = ServerWindow.LOG_PATH;
-//        jlistUsers = new JList<>(arrUsers);
-//        jlistUsers.setLayoutOrientation(JList.VERTICAL);
-//        JScrollPane tableListUsers = new JScrollPane(jlistUsers);
-//        tableListUsers.setPreferredSize(new Dimension(100, 20));
-
+        setting(serverWindow);
         createPanel();
-
         setVisible(true);
+    }
+
+    private void setting(ServerWindow serverWindow) {
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        setLocation(serverWindow.getX() - 500, serverWindow.getY());
+        setSize(WIDTH, HEIGHT);
+        setResizable(false);
+        setTitle("Chat Client");
+        client = new Client(this, serverWindow.getConnection());
     }
 
     private void createPanel() {
