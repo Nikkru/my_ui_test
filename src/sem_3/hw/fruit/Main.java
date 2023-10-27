@@ -11,6 +11,11 @@ public class Main {
         appleBox.add(new Apple());
         appleBox.add(new Apple());
 
+        Fruit orange = fruitBox.get(0);
+        if (orange instanceof Orange) {
+            Orange orange1 = (Orange) orange;
+        }
+
         orngeBox.add(new Orange());
         orngeBox.add(new Orange());
 

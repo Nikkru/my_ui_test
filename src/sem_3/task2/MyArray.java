@@ -1,12 +1,8 @@
 package sem_3.task2;
 
 public class MyArray<T> {
-    Object[] objects = new Object[10];
-    int size;
-
-//    public MyArray() {
-//        size = objects.length;
-//    }
+    private Object[] objects = new Object[10];
+    private int size;
 
     public void add(T t) {
         if (size >= objects.length) {
@@ -19,7 +15,9 @@ public class MyArray<T> {
                     objects.length);
             objects = objects1;
         }
+        System.out.println(size);
         objects[size++] = t;
+        System.out.println(objects[size-1]);
     }
 
     public void remove(int index) {
