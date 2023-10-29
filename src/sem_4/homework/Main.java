@@ -15,7 +15,7 @@ public class Main {
         employeesGuide.addEmployee(new Employee(006, "Anna", "1238", 2));
         employeesGuide.addEmployee(new Employee(007, "Smith", "1239", 3));
 
-        List<String> employees5YP = employeesGuide.getEmployeesNamesByExp(7);
+        List<String> employees5YP = employeesGuide.getEmployeesNamesByExp(5);
         List<String> employeesPhoneNumbersByNameSmithList = employeesGuide.getEmployeesPhoneNumberByName("Smith");
         Employee employee = employeesGuide.getEmployeeById(002);
         System.out.println(employee);

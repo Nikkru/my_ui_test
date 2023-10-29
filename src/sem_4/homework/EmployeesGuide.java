@@ -27,6 +27,7 @@ public class EmployeesGuide {
 //            System.out.println(key + " : " + value);
             namesList.add(value.name);
         });
+        System.out.println(employeesMapTmp.size());
         System.out.println("List of employees with " + thisExp + " years experience: " + namesList.toString());
         return namesList;
     }
@@ -44,6 +45,9 @@ public class EmployeesGuide {
     }
 
     public Employee getEmployeeById(Integer thisId) {
-        return employeesMap.get(thisId);
+        Employee employee = employeesMap.get(thisId);
+        System.out.println(employee.toString());
+        return employee;
+
     }
 }
