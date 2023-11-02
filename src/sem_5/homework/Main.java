@@ -13,13 +13,18 @@ import java.util.concurrent.Semaphore;
 * */
 public class Main {
     public static void main(String[] args) {
-        Semaphore table = new Semaphore(2);
+//        Semaphore table = new Semaphore(2);
+//
+//        new Philosopher(table, "Сократ").start();
+//        new Philosopher(table, "Платон").start();
+//        new Philosopher(table, "Аристотель").start();
+//        new Philosopher(table, "Лосев").start();
+//        new Philosopher(table, "Конфуций").start();
+        Table table = new Table();
 
-        new Philosopher(table, "Сократ").start();
-        new Philosopher(table, "Платон").start();
-        new Philosopher(table, "Аристотель").start();
-        new Philosopher(table, "Лосев").start();
-        new Philosopher(table, "Конфуций").start();
+        for (Philosopher p: table.philosophers) {
+            p.start();
+        }
 
     }
 }

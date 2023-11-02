@@ -1,34 +1,50 @@
 package sem_5.homework;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
 
 public class Table extends Thread {
-    private List<Fork> allForks;
-    private List<Philosopher> philosophers;
-    private List<AtTheTablePlace> atTheTablePlaces;
-
-    private CountDownLatch countDownLatch;
+//    private Philosopher philosopher;
+    public List<Philosopher> philosophers;
+    private Semaphore semaphore = new Semaphore(2,true);
 
     public Table() {
-        countDownLatch = new CountDownLatch(5);
-        allForks = new ArrayList<>(5);
+//        this.philosopher = philosopher;
+//        this.semaphore = semaphore;
         philosophers = new ArrayList<>(5);
 
-//        allForks.add(new Fork("1"));
-//        allForks.add(new Fork("2"));
-//        allForks.add(new Fork("3"));
-//        allForks.add(new Fork("4"));
-//        allForks.add(new Fork("5"));
+        philosophers.add(new Philosopher(semaphore,"1"));
+        philosophers.add(new Philosopher(semaphore,"2"));
+        philosophers.add(new Philosopher(semaphore,"3"));
+        philosophers.add(new Philosopher(semaphore,"4"));
+        philosophers.add(new Philosopher(semaphore,"5"));
+    }
 
+    private void refreshAndWork(Philosopher philosopher) {
+        try {
+            semaphore.acquire();
+            System.out.println(philosopher.getName() + " берет вилки и трапезничает");
+            sleep(1000);
+            philosopher.setFull(true);
 
+            System.out.println(philosopher.getName() + " кладет вилки и филосовствует");
+            semaphore.release();
+            sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.println("Всё запуталось");
+        }
+    }
 
-//        philosophers.add(new Philosopher("1", countDownLatch, new ArrayList<Fork>()));
-//        philosophers.add(new Philosopher("2", countDownLatch, forks));
-//        philosophers.add(new Philosopher("3", countDownLatch, forks));
-//        philosophers.add(new Philosopher("4", countDownLatch, forks));
-//        philosophers.add(new Philosopher("5", countDownLatch, forks));
+    @Override
+    public void run() {
+        int i = 0;
+        while (i < 3) {
+            for (int j = 0; j < philosophers.size(); j++) {
+            if (!philosophers.get(j-1).isFull() && !philosophers.get(j).isFull() && !philosophers.get(j+1).isFull()) {
+                refreshAndWork(philosophers.get(j));
+            }
+            }
+        }
     }
 }
