@@ -1,30 +1,64 @@
 package sem_5.homework;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
 
 public class Philosopher extends Thread {
-    private Forks forks;
+//    private Fork fork;
+    private Semaphore semaphore;
     private String name;
-    private CountDownLatch countDownLatch;
-    private boolean isWithForks;
+    private boolean full;
 
-    public Philosopher(String name, CountDownLatch countDownLatch, Forks forks) {
+//    public List<Fork> forks;
+
+
+    public Philosopher(Semaphore semaphore, String name) {
+        this.semaphore = semaphore;
         this.name = name;
-        this.countDownLatch = countDownLatch;
-        this.forks = forks;
     }
 
-    private void eat() {
-        if (forks.isInTheHands()) {
-            forks.setInTheHands(false);
-        };
+    @Override
+    public void run() {
+        try {
+            if (!isFull()) {
+                semaphore.acquire();
+                System.out.println(name + " берет вилки и трапезничает");
+                sleep(1000);
+                setFull(true);
+
+                System.out.println(name + " кладет вилки и филосовствует");
+                semaphore.release();
+                sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Всё запуталось");
+        }
     }
 
-    private void think() {
-        if (!forks.isInTheHands()) {
-            forks.setInTheHands(true);
-        };
+    //    private void eat() {
+//        try {
+//        if (!full) {
+//            semaphore.acquire();
+//            sleep(1000);
+//            setFull(true);
+//        }
+//        } catch (InterruptedException e) {
+//            System.out.println("Wrong way");;
+//        }
+//    }
+
+//    private void think() {
+//        for (Fork f:forks) {
+//            if (f.isAreInTheHands()) {
+//                f.setAreInTheHands(false);
+//            }
+//        }
+//    }
+
+    public boolean isFull() {
+        return full;
+    }
+
+    public void setFull(boolean full) {
+        this.full = full;
     }
 }

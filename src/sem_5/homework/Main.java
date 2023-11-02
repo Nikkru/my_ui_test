@@ -1,5 +1,7 @@
 package sem_5.homework;
 
+import java.util.concurrent.Semaphore;
+
 /*
 * Пять безмолвных философов сидят вокруг круглого стола, перед каждым философом стоит тарелка спагетти.
 Вилки лежат на столе между каждой парой ближайших философов.
@@ -10,4 +12,14 @@ package sem_5.homework;
 Описать в виде кода такую ситуацию. Каждый философ должен поесть три раза
 * */
 public class Main {
+    public static void main(String[] args) {
+        Semaphore table = new Semaphore(2);
+
+        new Philosopher(table, "Сократ").start();
+        new Philosopher(table, "Платон").start();
+        new Philosopher(table, "Аристотель").start();
+        new Philosopher(table, "Лосев").start();
+        new Philosopher(table, "Конфуций").start();
+
+    }
 }
