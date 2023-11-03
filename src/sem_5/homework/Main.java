@@ -21,7 +21,6 @@ public class Main {
 //        new Philosopher(table, "Лосев").start();
 //        new Philosopher(table, "Конфуций").start();
         Table table = new Table();
-
         for (Philosopher p: table.philosophers) {
             p.start();
         }

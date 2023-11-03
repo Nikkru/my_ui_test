@@ -6,26 +6,39 @@ public class Philosopher extends Thread {
 //    private Fork fork;
     private Semaphore semaphore;
     private String name;
-    private boolean full;
+    private Fork leftFork;
+    private Fork rightFork;
+    private Table table;
+    public boolean full;
 
 //    public List<Fork> forks;
 
 
-    public Philosopher(Semaphore semaphore, String name) {
+    public Philosopher(Semaphore semaphore, String name, Fork fork, Fork fork1) {
         this.semaphore = semaphore;
         this.name = name;
+        leftFork = fork;
+        rightFork = fork1;
+        table = new Table();
     }
 
     @Override
     public void run() {
+        refreshAndWork(table);
+    }
+
+    private void refreshAndWork(Table table) {
         try {
-            if (!isFull()) {
+            if (!leftFork.isAreInTheHands() && !rightFork.isAreInTheHands()) {
                 semaphore.acquire();
                 System.out.println(name + " берет вилки и трапезничает");
+                leftFork.setAreInTheHands(true);
+                rightFork.setAreInTheHands(true);
                 sleep(1000);
-                setFull(true);
 
                 System.out.println(name + " кладет вилки и филосовствует");
+                leftFork.setAreInTheHands(false);
+                rightFork.setAreInTheHands(false);
                 semaphore.release();
                 sleep(1000);
             }
@@ -33,26 +46,6 @@ public class Philosopher extends Thread {
             System.out.println("Всё запуталось");
         }
     }
-
-    //    private void eat() {
-//        try {
-//        if (!full) {
-//            semaphore.acquire();
-//            sleep(1000);
-//            setFull(true);
-//        }
-//        } catch (InterruptedException e) {
-//            System.out.println("Wrong way");;
-//        }
-//    }
-
-//    private void think() {
-//        for (Fork f:forks) {
-//            if (f.isAreInTheHands()) {
-//                f.setAreInTheHands(false);
-//            }
-//        }
-//    }
 
     public boolean isFull() {
         return full;
