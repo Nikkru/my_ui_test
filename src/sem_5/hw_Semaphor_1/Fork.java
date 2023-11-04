@@ -19,7 +19,7 @@ public class Fork {
     }
 
     boolean isAvailable() {
-        return mutex.equals(0);
+        return mutex.equals(null);
     }
 
     int getID() {
