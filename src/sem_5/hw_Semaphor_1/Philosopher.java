@@ -4,12 +4,14 @@ import java.util.Random;
 
 public class Philosopher extends Thread {
     private final int id;
+    private int dinnersCount;
     private final Fork leftFork;
     private final Fork rightFork;
     private int count = 0;
 
-    public Philosopher(int id, Fork leftFork, Fork rightFork) {
+    public Philosopher(int id, int dinnersCount, Fork leftFork, Fork rightFork) {
         this.id = id;
+        this.dinnersCount = dinnersCount;
         this.leftFork = leftFork;
         this.rightFork = rightFork;
     }
@@ -35,14 +37,16 @@ public class Philosopher extends Thread {
     public void run() {
         if (!leftFork.isAvailable() && !rightFork.isAvailable()) {
             try {
-                while (count < 3) {
+                while (count < dinnersCount) {
                     Thread.sleep(new Random().nextInt(500));
                     takeFork(leftFork);
                     takeFork(rightFork);
+                    System.out.println("Now philosopher " + id + " is eating");
                     eat();
                     System.out.println(
-                            "Philosopher " + id + " put fork " + leftFork.getID()
-                            + " and fork " + rightFork.getID());
+                                    "Philosopher " + id + " put fork " + leftFork.getID()
+                                    + " and fork " + rightFork.getID() + System.lineSeparator()
+                                    + "Now philosopher " + id + " is thinking");
                     leftFork.release();
                     rightFork.release();
                     count++;
