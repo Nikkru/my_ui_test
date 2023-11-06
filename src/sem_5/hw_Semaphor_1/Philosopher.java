@@ -30,6 +30,7 @@ public class Philosopher extends Thread {
             System.out.println("Philosopher " + id + " is waiting for fork " + fork.getID());
         }
         fork.acquire();
+//        fork.setFree(false);
         System.out.println("Fork " + fork.getID() + " taken by Philosopher " + id);
     }
 

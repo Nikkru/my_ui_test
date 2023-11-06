@@ -3,23 +3,32 @@ package sem_5.hw_Semaphor_1;
 import java.util.concurrent.Semaphore;
 
 public class Fork {
-    private final Semaphore mutex = new Semaphore(1);
+    private final Semaphore semaphore = new Semaphore(1);
     private final int id;
+    private boolean free = true;
+
+    public boolean isFree() {
+        return free;
+    }
+
+    public void setFree(boolean free) {
+        this.free = free;
+    }
 
     public Fork(int id) {
         this.id = id;
     }
 
     void acquire() throws InterruptedException {
-        mutex.acquire();
+        semaphore.acquire();
     }
 
     void release() {
-        mutex.release();
+        semaphore.release();
     }
 
     boolean isAvailable() {
-        return mutex.equals(null);
+        return semaphore.equals(0);
     }
 
     int getID() {
