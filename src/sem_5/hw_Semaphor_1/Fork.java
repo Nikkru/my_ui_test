@@ -28,7 +28,9 @@ public class Fork {
     }
 
     boolean isAvailable() {
+        System.out.println(semaphore.equals(0));
         return semaphore.equals(0);
+
     }
 
     int getID() {
